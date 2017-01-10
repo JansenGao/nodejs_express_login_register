@@ -11,6 +11,7 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+
 global.dbHandel = require('./database/dbHandel');
 global.db = mongoose.connect("mongodb://localhost:27017/nodedb");
 var app = express();
@@ -20,6 +21,10 @@ app.use(session({
 		maxAge: 1000*60*30
 	}
 }));
+
+//Configure passport
+require('./config/passport')(app);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine("html",require("ejs").__express); // or   app.engine("html",require("ejs").renderFile);

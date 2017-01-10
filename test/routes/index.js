@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 /* GET index page. */
 router.get('/', function(req, res,next) {
@@ -87,7 +88,29 @@ router.get("/logout",function(req,res){    // 到达 /logout 路径则登出， 
 
 /*Customized login*/
 router.get('/login1', function(req, res){
-   res.render("login1"); 
+   res.render('login1'); 
+}).post('/login1', function(req, res, next){
+    console.log('login1 post.');
+    passport.authenticate('local', function(err, user, info){
+        console.log(err);
+        console.log(user);
+        if(err){
+            return next(err);
+        }
+        if(!user){
+            return res.render('login1', {message: 'User not exists'});
+        }
+        req.logIn(user, function(err){
+            if(err){
+                return next(err);
+            }
+            return res.redirect('/home');
+        })
+    })(req, res, next);
+});
+
+router.post('/login1', function(req, res){
+    res.render('login1');
 });
 
 module.exports = router;
