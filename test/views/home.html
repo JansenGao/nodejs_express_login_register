@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style type="text/css">
-	a{margin-left: 20px; text-decoration: none;}
-	a:hover{text-decoration: underline;}
-    </style>
+    <title>Accenture Timesheet System</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
   </head>
   <body>
-  <h1>Your name:   <%- user.name %></h1>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+        <div><li>
+            <a class="btn btn-success" href="/logout">Logout</a>
+        </li>
+        </div>
+    </ul>
     <p>Welcome to your home ~</p>
     <p><a href="/logout">我要注销 </a>
     </p>
+      
   </body>
 </html>
