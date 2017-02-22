@@ -8,6 +8,8 @@ var multer = require('multer');
 var mongoose = require('mongoose');
 var session = require('express-session');
 
+var handlebars = require('express3-handlebars').create({defaultLayout: 'dashboard', extname: '.hbs'});
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -26,10 +28,13 @@ app.use(session({
 require('./config/passport')(app);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.engine("html",require("ejs").__express); // or   app.engine("html",require("ejs").renderFile);
+app.set('views', './views');
+//app.engine("html",require("ejs").__express); // or   app.engine("html",require("ejs").renderFile);
 //app.set("view engine","ejs");
-app.set('view engine', 'html');
+//app.set('view engine', 'html');
+
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -51,14 +56,14 @@ app.use(function(req,res,next){
 	next();
 });
 
-app.use('/', routes);  // 即为为路径 / 设置路由
+//app.use('/', routes);  // 即为为路径 / 设置路由
 //app.use('/users', users); // 即为为路径 /users 设置路由
 //app.use('/login',routes); // 即为为路径 /login 设置路由
 //app.use('/register',routes); // 即为为路径 /register 设置路由
 //app.use('/home',routes); // 即为为路径 /home 设置路由
 //app.use("/logout",routes); // 即为为路径 /logout 设置路由
 
-
+/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -79,15 +84,21 @@ if (app.get('env') === 'development') {
     });
   });
 }
-
+*/
 // production error handler
 // no stacktraces leaked to user
+/*
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {}
   });
+});
+*/
+
+app.get('/login', function(req, res){
+    res.render('login', {layout: null});
 });
 
 

@@ -87,10 +87,11 @@ var passport = require('passport');
 //});
 
 /*Customized login*/
-router.get('/login1', function(req, res){
-   res.render('login1'); 
-}).post('/login1', function(req, res, next){
-    console.log('login1 post.');
+/*
+router.get('/login', function(req, res){
+   res.render('login', {layout: null}); 
+}).post('/login', function(req, res, next){
+    console.log('login post.');
     passport.authenticate('local', function(err, user, info){
         console.log(err);
         console.log(user);
@@ -99,7 +100,7 @@ router.get('/login1', function(req, res){
         }
         if(!user){
             //res.status(301);
-            return res.render('login1', {message: 'User or password is invalid.'});
+            return res.render('login', {layout: null, message: 'User or password is invalid.'});
             //res.redirect(301, 'login1');
         }
         req.logIn(user, function(err){
@@ -111,28 +112,34 @@ router.get('/login1', function(req, res){
     })(req, res, next);
 });
 
-router.post('/login1', function(req, res){
-    res.render('login1');
+router.post('/login', function(req, res){
+    res.render('login');
 });
 
 router.use('/home', function(req, res){
    if(!req.user){
-       res.redirect(301, 'login1');
+       res.redirect(301, 'login', {layout: null});
    }
     res.render('home');
 });
 
 router.use('/logout', function(req, res){
     req.logout();
-    res.redirect(301, 'login1');
+    res.redirect(301, 'login', {layout: null});
 });
 
 router.use('/*', function(req, res){
     if(req.user){
         res.render('home');
     }else{
-        res.redirect(301, 'login1');
+        res.redirect(301, 'login', {layout: null});
     }
 });
+*/
+/*
+router.get('login', function(req, res){
+   res.render('login', {layout: null}); 
+});
+*/
 
 module.exports = router;
